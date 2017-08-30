@@ -89,9 +89,12 @@ def build_inline_keyboard_categories(lang='RU'):
 
 def send_categories(bot, update):
     try:
+        if not update.message.location:
+            return update.message.reply_text(get_message_by_key('coordinates_are_required'))
+
         lat, lng = update.message.location.latitude, update.message.location.longitude
 
-        chanel = find_chanel(update.callback_query.message.chat.id)
+        chanel = find_chanel(update.message.chat.id)
         chanel.set_coordinates(lat, lng)
 
         keyboard = build_inline_keyboard_categories()
@@ -101,7 +104,6 @@ def send_categories(bot, update):
 
 
 def send_places(bot, update, places):
-    print('PLACES: ', places)
     if (places):
         try:
             for place in places:
