@@ -10,6 +10,7 @@ from handlers.models import Place
 from handlers.place_types import places
 from models import Chanel
 
+SELECTED_LANGUAGE = os.getenv('LANGUAGE', 'EN')
 DIRECTION_URL = 'https://www.google.com/maps/dir/?api=1&origin={},{}&destination={},{}'
 GET_NEARBY_PLACES_URL = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={},{}&radius={}&rankBy=distance&type={}&key={}'
 
@@ -97,7 +98,7 @@ def send_categories(bot, update):
         chanel = find_chanel(update.message.chat.id)
         chanel.set_coordinates(lat, lng)
 
-        keyboard = build_inline_keyboard_categories()
+        keyboard = build_inline_keyboard_categories(SELECTED_LANGUAGE)
         update.message.reply_text(get_message_by_key('places_and_establishments'), reply_markup=keyboard)
         update.message.reply_text(reply_markup=build_keyboard())
     except Exception as ex:
