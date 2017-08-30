@@ -99,6 +99,7 @@ def send_categories(bot, update):
 
         keyboard = build_inline_keyboard_categories()
         update.message.reply_text(get_message_by_key('places_and_establishments'), reply_markup=keyboard)
+        update.message.reply_text(get_message_by_key('places_and_establishments'), reply_markup=build_keyboard())
     except Exception as ex:
         print(ex)
 

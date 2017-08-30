@@ -4,7 +4,7 @@ import os
 from telegram.ext import MessageHandler, CallbackQueryHandler, CommandHandler
 
 from handlers.core import send_places, get_nearby_places, take_by_limit, order_places, build_places, send_categories, \
-    find_chanel
+    find_chanel, build_keyboard
 from handlers.decorators import save_chanel_decorator
 from handlers.messages import get_message_by_key
 
@@ -16,7 +16,8 @@ GOOGLE_PLACE_DISTANCE = os.getenv('GOOGLE_PLACE_DISTANCE')
 @save_chanel_decorator
 def intro(bot, update):
     intro_message = get_message_by_key('intro')
-    bot.send_message(update.message.chat.id, intro_message)
+    keyboard = build_keyboard()
+    bot.send_message(update.message.chat.id, intro_message, reply_markup=keyboard)
 
 
 @save_chanel_decorator
